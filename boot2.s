@@ -66,7 +66,7 @@ _contPrint:
     cmp ecx, 0          # see if we've satisfied str_length
     je _donePrint       # if we have, clean up and end
     movsb               # move character from string into video memory
-    movs es:[edi], 31   # give it some color
+    movb es:[edi], 31   # give it some color
     inc edi             # increment to the next spot in video memory
     jmp _contPrint      # if we're here, nothing else has caught - jump back to the top
 

@@ -6,6 +6,8 @@
 
 #define MAX_COL 80 //i dont like magic numbers
 #define MAX_ROW 24 //and global variables are yucky
+#define TRUE 1
+#define FALSE 1
 
 //Functions written in asm
 void k_clearscr();
@@ -20,21 +22,21 @@ int main()
 {
     int maxPrimes = 20;
     int possiblePrime = 2;
-    bool primes[maxPrimes+1]
+    int primes[maxPrimes+1];
     char buffer[80];
     println('Primes:');
     //sieve of eratosthenes
     for (int i = 2; i*i <= maxPrimes; i++)
     {
-        if(primes[i])
+        if(primes[i] == 1)
         {
             for (int j = i*2; j <= maxPrimes; j += i)
-                primes[j] = false;
+                primes[j] = 1;
         }
     }
-    for (int i = 2; i <= maxPrimes)
+    for (int i = 2; i <= maxPrimes; i++)
     {
-        if (primes[i])
+        if (primes[i] == 1)
            convert_num(i, buffer); 
     }
 
