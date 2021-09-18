@@ -9,7 +9,9 @@
 
 .intel_syntax noprefix
 .global k_print
-.global K_scroll
+.global k_scroll
+.global k_clear_scr
+# .global k_sqr_root
 
 # i shall rip this rock from its peaceful home
 # and shall give it the ability to speak
@@ -113,3 +115,12 @@ k_clear_scr:
     popf
     popad
     ret
+
+# k_sqr_root:
+    # there was another, the rock was not alone
+    # talented was this one, numbers it knew well
+    # for but one purpose it served, living in the shadow of its friend.
+    
+    # was going to use the x87 floating point co processor to
+    # calculate the minimum number to check for primality
+    # but wanted to try a fancier algorithm
