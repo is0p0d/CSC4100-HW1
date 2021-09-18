@@ -1,6 +1,10 @@
-run: install
+debug: install
 	mv ./a.img ./a.raw
 	qemu-system-i386 -S -s -boot a -fda a.raw
+
+run: install
+	mv ./a.img ./a.raw
+	qemu-system-i386 -boot a -fda a.raw
 
 install: boot1 boot2
 	bximage -mode=create -fd=1.44M  -q a.img
@@ -25,8 +29,8 @@ boot2_c.o: boot2.c
 
 clean:
 	rm *.o
-	rm *.img
 	rm *.exe
-	rm boot1
 	rm boot2
+	rm boot1
 	rm boot1.list
+	rm *.raw

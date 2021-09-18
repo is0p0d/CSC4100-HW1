@@ -6,49 +6,61 @@
 
 #define MAX_COL 80 //i dont like magic numbers
 #define MAX_ROW 24 //and global variables are yucky
-#define TRUE 1
-#define FALSE 1
 
 //Functions written in asm
 void k_clearscr();
 void k_print(char *string, int str_length, int row, int col);
 void k_scroll();
 //Functions written in C
+int primeTest(int p);
 void println(char *string);
 int convert_num_h(unsigned int num, char buf[]);
 void convert_num(unsigned int num, char buf[]);
 
+int row = 0; // could use pointers to fix this.
+
 int main()
 {
-    int maxPrimes = 20;
-    int possiblePrime = 2;
-    int primes[maxPrimes+1];
-    char buffer[80];
-    println('Primes:');
-    //sieve of eratosthenes
-    for (int i = 2; i*i <= maxPrimes; i++)
+    k_clearscr();
+    int maxPrimes = 30;
+    int possiblePrime = 3;
+    int numOfPrimes = 0;
+    char* numBuffer;
+    println("JimOS 1.0a");
+    println(" ");
+    println("Primes:");
+    println("-----------");
+
+    while (numOfPrimes <= maxPrimes)
     {
-        if(primes[i] == 1)
+        if(primeTest(possiblePrime) == 1)
         {
-            for (int j = i*2; j <= maxPrimes; j += i)
-                primes[j] = 1;
+            convert_num(possiblePrime, numBuffer);
+            println(numBuffer);
+            numOfPrimes++;
         }
-    }
-    for (int i = 2; i <= maxPrimes; i++)
-    {
-        if (primes[i] == 1)
-           convert_num(i, buffer); 
+        possiblePrime++;
     }
 
+
     while(1);
+}
+//Absolutely naive prime finding algorithm.
+int primeTest(int p)
+{
+    for (int i = 2; i <= p/2; i++)
+    {
+        if(p%i == 0)
+        return 0;
+    }
+    return 1;
 }
 
 void println(char *string)
 {
     int num_to_print = 0;
-    int row = 0;
 
-    while (*(string+num_to_print) != '0')
+    while (*(string+num_to_print) != '\0')
         num_to_print++;
 
     while (num_to_print != 0)
@@ -67,7 +79,7 @@ void println(char *string)
         if (row > MAX_ROW)
         {
             k_scroll();
-            row -= MAX_ROW;
+            row = MAX_ROW;
         }
     }
 }

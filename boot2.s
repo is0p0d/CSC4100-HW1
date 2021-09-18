@@ -10,7 +10,7 @@
 .intel_syntax noprefix
 .global k_print
 .global k_scroll
-.global k_clear_scr
+.global k_clearscr
 # .global k_sqr_root
 
 # i shall rip this rock from its peaceful home
@@ -66,8 +66,9 @@ _contPrint:
     cmp ecx, 0          # see if we've satisfied str_length
     je _donePrint       # if we have, clean up and end
     movsb               # move character from string into video memory
-    movb es:[edi], 31   # give it some color
+    movb es:[edi], 06   # give it some color
     inc edi             # increment to the next spot in video memory
+    dec ecx
     jmp _contPrint      # if we're here, nothing else has caught - jump back to the top
 
 _donePrint:
@@ -94,13 +95,13 @@ k_scroll:
     rep movsb           # repeatedly move ds:esi to es:edi
     mov ecx, 80
     mov al, ' '         # building AX-low with a blank space
-    mov ah, 31          # building AX-high with a color
+    mov ah, 06          # building AX-high with a color
     rep stosw           # storing ax across every column
     popf
     popad
     ret
 
-k_clear_scr:
+k_clearscr:
     # the rock, this hunk of silicon
     # it has spoken too much, it vexes me
     # i shall silence it, its thoughts shall be no more
@@ -110,7 +111,7 @@ k_clear_scr:
     mov edi, 0xB8000
     mov ecx, 80 * 25 * 2
     mov al, ' '
-    mov ah, 31
+    mov ah, 06
     rep stosw
     popf
     popad
@@ -123,4 +124,4 @@ k_clear_scr:
     
     # was going to use the x87 floating point co processor to
     # calculate the minimum number to check for primality
-    # but wanted to try a fancier algorithm
+    # but decided 20 primes wasnt worth it
