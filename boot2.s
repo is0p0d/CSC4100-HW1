@@ -82,7 +82,7 @@ _donePrint:
 k_scroll:
     pushad              ;push all general purpose registers
     pushf               ;push flags
-    mov esi, 80* 2 + 0xb8000;moving an offset into esi
+    mov esi, 80* 2 + 0xb8000;copying a given row into esi
     mov edi, 0xb8000    ;moving the beginning of video mem into edi 
     mov ecx, 80 * 24 * 2;prepping the count register with max addressable video mem
     rep movsb           ;repeatedly move ds:esi to es:edi
@@ -90,6 +90,22 @@ k_scroll:
     mov al, ' '         ;building AX-low with a blank space
     mov ah, 31          ;building AX-high with a color
     rep stosw           ;storing ax across every column
+    popf
+    popad
+    ret
+
+k_clear_scr:
+    ;the rock, this hunk of silicon
+    ;it has spoken too much, it vexes me
+    ;i shall silence it, its thoughts shall be no more
+    ;write blank spaces onto every possible video memory location
+    pushad              ;push all general purpose registers
+    pushf               ;push flags
+    mov edi, 0xB8000
+    mov ecx, 80 * 25 * 2
+    mov al, ' '
+    mov ah, 31
+    rep stosw
     popf
     popad
     ret
