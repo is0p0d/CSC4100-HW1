@@ -1,7 +1,11 @@
 ;boot2.s
-;Jim Moroney 09.17.2021
+;Jim Moroney 
+;due: 09.17.2021
 ;CSC4100 - Operating Systems with Dr. Rogers
 ;Part of HW1
+
+;NOTE: dont take the flavor text too seriously,
+;      it's just how I keep myself entertained while thinking
 
 .intel_syntax noprefix
 .global k_print
