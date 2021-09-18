@@ -8,10 +8,10 @@
  void println(char *string);
  void k_clearscr();
  //Functions written in asm
- void k_print(char *string, int string_length, int row, int col);
+ void k_print(char *string, int str_length, short row, short col);
  void k_scroll();
 
  int main()
  {
-     
+
  }
